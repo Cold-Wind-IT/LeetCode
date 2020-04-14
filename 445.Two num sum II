@@ -1,0 +1,37 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     public int val;
+ *     public ListNode next;
+ *     public ListNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public ListNode AddTwoNumbers(ListNode l1, ListNode l2) {
+        Stack<int> stack1 = new Stack<int>();
+        Stack<int> stack2 = new Stack<int>();
+        while(l1 != null){
+            stack1.Push(l1.val);
+            l1 = l1.next;
+        }
+        while(l2 != null){
+            stack2.Push(l2.val);
+            l2 = l2.next;
+        }
+        ListNode res = null;
+        int tmp = 0;
+        while(stack1.Count() > 0 || stack2.Count() > 0 || tmp != 0){
+            int value = 0;
+            if(stack1.Count() > 0)
+                value += stack1.Pop();
+            if(stack2.Count() > 0)
+                value += stack2.Pop();
+            value += tmp;
+            ListNode node = new ListNode(value%10);
+            tmp = value/10;
+            node.next = res;
+            res = node;
+        }
+        return res;
+    }
+}
